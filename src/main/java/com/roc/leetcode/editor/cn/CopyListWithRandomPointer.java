@@ -70,7 +70,8 @@
  */
 package com.roc.leetcode.editor.cn;
 
-import com.peng.source.leetcode.editor.cn.common.Node;
+
+import com.roc.leetcode.editor.cn.common.Node;
 
 public class CopyListWithRandomPointer {
     public static void main(String[] args) {
