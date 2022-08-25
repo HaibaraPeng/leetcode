@@ -46,7 +46,7 @@ import java.util.Arrays;
 public class FindFirstAndLastPositionOfElementInSortedArray {
     public static void main(String[] args) {
         Solution solution = new FindFirstAndLastPositionOfElementInSortedArray().new Solution();
-        solution.searchRange(new int[]{}, 8);
+        solution.searchRange(new int[]{5, 7, 7, 8, 8, 10}, 8);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
