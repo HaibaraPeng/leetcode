@@ -60,13 +60,13 @@ import java.util.*;
 
 public class TimeBasedKeyValueStore {
     public static void main(String[] args) {
-        TimeMap map = new TimeMap();
-        map.set("foo", "bar", 1);
-        map.get("foo", 1);
-        map.get("foo", 3);
-        map.set("foo", "bar2", 4);
-        map.get("foo", 4);
-        map.get("foo", 5);
+//        TimeMap map = new TimeMap();
+//        map.set("foo", "bar", 1);
+//        map.get("foo", 1);
+//        map.get("foo", 3);
+//        map.set("foo", "bar2", 4);
+//        map.get("foo", 4);
+//        map.get("foo", 5);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
