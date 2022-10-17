@@ -56,9 +56,9 @@ import java.util.*;
 
 public class SerializeAndDeserializeBinaryTree {
     public static void main(String[] args) {
-        Codec codec = new Codec();
-        TreeNode root = codec.deserialize("[1,2,3,4,5,4,5]");
-        System.out.println(codec.serialize(root));
+//        Codec codec = new Codec();
+//        TreeNode root = codec.deserialize("[1,2,3,4,5,4,5]");
+//        System.out.println(codec.serialize(root));
     }
 
     public static class TreeNode {
