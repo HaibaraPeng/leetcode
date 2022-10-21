@@ -41,59 +41,73 @@
  */
 package com.roc.leetcode.editor.cn;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class RemoveInvalidParentheses {
     public static void main(String[] args) {
         Solution solution = new RemoveInvalidParentheses().new Solution();
-        solution.removeInvalidParentheses("()())()");
+        solution.removeInvalidParentheses(")(f");
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        int len;
+
+        int len = 0;
 
         public List<String> removeInvalidParentheses(String s) {
-            char[] cs = s.toCharArray();
-            int l = 0, r = 0;
-            for (char c : cs) {
-                if (c == '(') {
-                    l++;
-                } else if (c == ')') {
-                    r++;
+            char[] chars = s.toCharArray();
+            int left = 0, right = 0;
+            for (char aChar : chars) {
+                if (aChar == '(') {
+                    left++;
+                } else if (aChar == ')') {
+                    right++;
                 }
             }
-            int max = Math.min(l, r);
-            Set<String> all = new HashSet<>();
-            dfs(cs, 0, 0, max, "", all);
-            List<String> ans = new ArrayList<>();
-            for (String str : all) {
-                if (str.length() == len) ans.add(str);
-            }
-            return ans;
+            Set<String> res = new HashSet<>();
+            StringBuilder sb = new StringBuilder();
+            dfs(res, sb, chars, 0, 0, 0, Math.min(left, right));
+            return new ArrayList<>(res);
         }
 
-        void dfs(char[] cs, int u, int score, int max, String cur, Set<String> ans) {
-            if (u == cs.length) {
-                if (score == 0 && cur.length() >= len) {
-                    len = Math.max(len, cur.length());
-                    ans.add(cur);
+        private void dfs(Set<String> res, StringBuilder sb, char[] chars, int index, int curLeft, int curRight, int max) {
+            if (index == chars.length) {
+                if (curLeft == curRight) {
+                    if (sb.length() > len) {
+                        res.clear();
+                        len = sb.length();
+                        res.add(sb.toString());
+                    } else if (sb.length() == len) {
+                        res.add(sb.toString());
+                    }
                 }
                 return;
             }
-            if (cs[u] == '(') {
-                if (score + 1 <= max) dfs(cs, u + 1, score + 1, max, cur + "(", ans);
-                dfs(cs, u + 1, score, max, cur, ans);
-            } else if (cs[u] == ')') {
-                if (score > 0) dfs(cs, u + 1, score - 1, max, cur + ")", ans);
-                dfs(cs, u + 1, score, max, cur, ans);
+            if (Character.isLetter(chars[index])) {
+                sb.append(chars[index]);
+                dfs(res, sb, chars, index + 1, curLeft, curRight, max);
+                sb.deleteCharAt(sb.length() - 1);
+            } else if (chars[index] == '(') {
+                if (curLeft < max) {
+                    // 添加括号
+                    sb.append(chars[index]);
+                    dfs(res, sb, chars, index + 1, curLeft + 1, curRight, max);
+                    sb.deleteCharAt(sb.length() - 1);
+                }
+                // 不添加括号
+                dfs(res, sb, chars, index + 1, curLeft, curRight, max);
             } else {
-                dfs(cs, u + 1, score, max, cur + String.valueOf(cs[u]), ans);
+                if (curRight < curLeft) {
+                    // 添加括号
+                    sb.append(chars[index]);
+                    dfs(res, sb, chars, index + 1, curLeft, curRight + 1, max);
+                    sb.deleteCharAt(sb.length() - 1);
+                }
+                // 不添加括号
+                dfs(res, sb, chars, index + 1, curLeft, curRight, max);
             }
         }
+
 
     }
 //leetcode submit region end(Prohibit modification and deletion)
